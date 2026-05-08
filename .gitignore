@@ -1,0 +1,11 @@
+craft_env/
+__pycache__/
+*.mp4
+output/
+benchmark_output/
+comparison_output/
+compression_output/
+pretrained/
+models/
+*.zip
+.DS_Store
