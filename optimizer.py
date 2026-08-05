@@ -311,7 +311,10 @@ class ProposedOptimizer:
                 )
             })
 
-        # Bounds
+        # Bounds — keep the search inside the region the grid actually profiled.
+        # Outside it the polynomial surrogate is extrapolating and its predictions
+        # are meaningless, so an unbounded search can wander off and then get
+        # silently clipped back to the edge (looking like a boundary optimum).
         bounds = [
             self.BG_QUALITY_RANGE,
             self.SSIM_THRESH_RANGE,
@@ -328,6 +331,7 @@ class ProposedOptimizer:
             objective,
             x0,
             method="COBYLA",
+            bounds=bounds,
             constraints=constraints,
             options={"maxiter": 500, "rhobeg": 5.0},
         )
